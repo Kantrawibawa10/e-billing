@@ -1,53 +1,75 @@
-@extends('layouts.app')
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-@section('content')
-    <div class="flex justify-center">
-        <div class="w-4/12 bg-white p-6 rounded-lg">
-            @if (session('status'))
-                <div class="bg-red-500 p-4 rounded-lg mb-6 text-white text-center">
-                    {{ session('status') }}
-                </div>
-            @endif
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
-            <form action="{{ route('login') }}" method="post">
-                @csrf
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../assets/images/logo/logo.png"  type="image/x-icon">
+    {{-- <link rel="icon" type="image/png" href="../assets/img/logo.png"> --}}
 
-                <div class="mb-4">
-                    <label for="email" class="sr-only">Email</label>
-                    <input type="text" name="email" id="email" placeholder="Your email"
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('email') border-red-500 @enderror" value="{{ old('email') }}">
+	</head>
+	<body>
+	<section class="ftco-section">
+		<div class="container">
 
-                    @error('email')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Choose a password"
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('password') border-red-500 @enderror" value="">
-
-                    @error('password')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <div class="flex items-center">
-                        <input type="checkbox" name="remember" id="remember" class="mr-2">
-                        <label for="remember">Remember me</label>
+			<div class="row justify-content-center">
+				<div class="col-md-7 col-lg-5">
+					<div class="login-wrap p-4 p-md-5">
+		     
+                  <h3 class="text-left mb-4">Sistem Billing</h3>
+                  <form method="POST" action="{{ route('login') }}" id="login-form">
+                     @csrf
+                     <div class="form-group">
+                       <label for="username">{{ __('Username') }}</label>
+                       <input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }} boxed" name="username" id="username" value="{{ old('username') }}" required autofocus>
+                     </div>
+                     @if ($errors->has('email'))
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                     @endif
+                 
+                     <div class="form-group">
+                         <label for="password">{{ __('Password') }}</label>
+                         <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} boxed" name="password" id="password" required>
+                     </div>
+                     @if ($errors->has('password'))
+                         <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('password') }}</strong>
+                         </span>
+                     @endif
+                 
+                     <div class="form-group" style="margin-bottom: 0px; float:left;">
+                         @if (Route::has('password.request'))
+                             <a href="{{ route('password.request') }}" class="forgetpwd">
+                                {{ __('Forgot Your Password?') }}
+                             </a>
+                         @endif
+                     </div>
+                 
+                     <div class="form-group">
+                        <button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
                     </div>
-                </div>
+                  </form>
+                 
 
-                <div>
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded
-                    font-medium w-full">Login</button>
-                </div>
-            </form>
-        </div>
-    </div>
-@endsection
+               </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+
+	</body>
+</html>
+
