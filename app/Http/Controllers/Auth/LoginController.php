@@ -39,6 +39,8 @@ class LoginController extends Controller
             return back()->with('gagal', 'invalid login details');
         }
 
+        return redirect()->route('dashboard')->with('login','Anda Berhasil Login');
+
         if($levels->id_role == '1') {
             return redirect()->route('dashboard')->with('login','Anda Berhasil Login');
         }
